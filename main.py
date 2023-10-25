@@ -14,6 +14,23 @@ def encode(password_to_encode):
     return password_chars_encoded
 
 
+# Decode function.
+def decode(encoded_password):
+    password_chars_decoded = []
+
+    for char in encoded_password: #need to subract 3 from each encoded number
+        if char == "0": #the encoded number resulted in 10
+            password_chars_decoded.append("7")
+        elif char == "1": #the encoded number resulted in 11
+            password_chars_decoded.append("8")
+        elif char == "2": #the encoded number resulted in 12
+            password_chars_decoded.append("9")
+        else: #the decoded number is the encoded number - 3
+            password_chars_decoded.append(str(int(char)-3))
+
+    return password_chars_decoded
+
+
 # Main function.
 def main():
 
@@ -41,7 +58,19 @@ def main():
                 encoded_password += char[-1]
 
         elif user_input == "2":
-            pass
+            # Gets user's password to decode.
+            password_to_decode = input("please enter a password to decode: ")
+
+            # List of decoded characters.
+            password_chars_decoded = decode(password_to_decode)
+
+            # creating the decoded password string.
+            decoded_password = ""
+            for char in password_chars_decoded:
+                decoded_password += char
+
+            # Displaying the decoded password.
+            print(decoded_password)
 
         # Exits program
         elif user_input == "3":
@@ -51,6 +80,3 @@ def main():
 # Calls the main function.
 if __name__ == "__main__":
     main()
-
-
-
